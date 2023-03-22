@@ -51,6 +51,6 @@ int32_t main(){
     //     }
     //     cout << endl;
     // }
-    int src = 0;
+    int src = 2;
      bfs(src);
 }

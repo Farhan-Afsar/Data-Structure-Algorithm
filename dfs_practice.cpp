@@ -27,6 +27,6 @@ int32_t main(){
         adj_list[u].push_back(v);
         adj_list[v].push_back(u);
     }
-    int src = 1;
+    int src = 2;
     dfs(src);
 }
