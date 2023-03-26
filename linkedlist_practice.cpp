@@ -116,6 +116,34 @@ class linked_list{
 
         delete newNode;
     }
+    void insertAfterValue(int data,int value){
+        Node * newNode = new Node(data);
+        Node * temp = head;
+
+        while(temp != NULL){
+            if(temp ->data == value)
+                break;
+            temp = temp->next;
+        }
+        if(temp == NULL){
+            cout <<"Doesn't exist";
+            return;
+        }
+        size++;
+        newNode ->next = temp -> next;
+        temp -> next = newNode;
+    }
+    void Reverse(Node * head){
+        if(head == NULL){
+            return;
+        }
+        Reverse(head -> next);
+        cout << head -> data << " ";
+    }
+    void reverse(){
+        Reverse(head);
+        cout << endl;
+    }
 };
 int main(){
     linked_list l;
@@ -132,5 +160,11 @@ int main(){
     l.traverse();
     cout << endl;
     l.deleteAnyIndex(2);
+    l.traverse();
+    l.insertAfterValue(100,10);
+    cout << endl;
+    l.traverse();
+    cout << endl;
+    l.reverse();
     l.traverse();
 }
