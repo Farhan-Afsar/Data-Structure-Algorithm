@@ -1,8 +1,5 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define endl "\n"
-#define int long long
-#define Faster ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 
 class Node{
     public:
@@ -18,12 +15,15 @@ class Node{
 class linked_list{
     public:
     Node * head;
+    int size;
 
     linked_list(){
         head = NULL;
+        size = 0;
     }
 
     void insetHead(int data){
+        size++;
         Node * newNode = new Node(data);
         if(head == NULL){
             head = newNode;
@@ -55,9 +55,69 @@ class linked_list{
         }
         return -1;
     }
+    int getSize(){
+    //     int size = 0;
+    //     Node * temp = head;
+    //     while(temp != NULL){      //O(n)
+    //         size++;
+    //         temp = temp -> next;
+    //     }
+    //     return size;
+    // }
+    return size;
+    }
+    void insertIndex(int data,int index){
+        if(index < 0 || index > size){
+            return;
+        }
+        size++;
+        Node * newNode = new Node(data);
+        if(index == 0){
+            insetHead(data);
+            return;
+        }
+        Node * temp = head;
+        int cur_indx = 0;
+
+        while(cur_indx != index - 1 ){
+            temp = temp -> next;
+            cur_indx++;
+        }
+        newNode -> next = temp -> next;
+        temp -> next = newNode;
+    }
+    void deleteHead(){
+        if(head == NULL)
+            return;
+        size--;
+        Node * temp = head;
+        head = temp -> next;
+
+        delete temp;
+    }
+    void deleteAnyIndex(int index){
+        if(index < 0 || index > size - 1){
+            return;
+        }
+        size--;
+        if(index == 0){
+            deleteHead();
+            return;
+        }
+        Node * temp = head;
+        int cur_indx = 0;
+
+        while(cur_indx != index - 1 ){
+            temp = temp -> next;
+            cur_indx++;
+        }
+        Node * newNode = temp -> next;
+        temp -> next = newNode -> next;
+
+        delete newNode;
+    }
 };
-int32_t main(){
-    Faster;
+int main(){
     linked_list l;
 
     l.insetHead(10);
@@ -65,8 +125,12 @@ int32_t main(){
     l.insetHead(30);
     l.insetHead(40);
     l.insetHead(59);
-
+    
+    // cout << l.getSize();
+    l.insertIndex(100,1);
+    l.deleteHead();
     l.traverse();
     cout << endl;
-    cout << l.searchDistinctValue(10);
+    l.deleteAnyIndex(2);
+    l.traverse();
 }
