@@ -1,19 +1,29 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int MAX = 500;
 
 class Stack{
 public:
-    int a[MAX];
+    int *a;
     int size;
-
+    int array_cap;
     Stack(){
+        a = new int[1];
         size = 0;
+        array_cap = 1;
+    }
+    void increase_size(){
+          int * temp;
+          temp = new int [array_cap * 2];
+          for(int i = 0; i < array_cap; i++){
+            temp[i] = a[i];
+          }
+          swap(a,temp);
+          delete []temp;
+          array_cap *= 2;  
     }
     void push(int data){
-        if(size + 1 > MAX){
-            cout << "Stack is full";
-            return;
+        if(size + 1 > array_cap){
+            increase_size();
         }
         size++;
         a[size - 1] = data;
@@ -34,6 +44,7 @@ public:
         return a[size-1];
     }
 };
+
 int main(){
     Stack s;
     s.push(1);
@@ -44,5 +55,5 @@ int main(){
     s.pop();
     s.pop();
     cout << s.top() << endl;
- 
+    
 }
