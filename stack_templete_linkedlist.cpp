@@ -80,6 +80,9 @@ class Stack{
         }
         dl.DeleteAtHead();
     }
+    int getSize(){
+        return dl.getSize();
+    }
 };
 int main(){
     Stack<float> s;
@@ -91,5 +94,44 @@ int main(){
     s.pop();
     s.pop();
     cout << s.top() << endl;
+
+    Stack<int> a;
+    a.push(4);
+    a.push(6);
+    a.push(3);
+    a.push(7);
+
+    Stack<int> temp;
+
+    while(a.getSize() > 0){
+        temp.push(a.top());            //Reversing a Stack
+        a.pop();
+    }
+    swap(a,temp);
+
+
+    Stack<int> tmp;
+
+    while(a.getSize() > 0){
+        int t = a.top();
+        a.pop();
+
+        while(tmp.getSize() > 0){
+            if(tmp.top() < t){               // Sorting O(n^2)
+                break;
+            }
+            a.push(tmp.top());
+            tmp.pop();
+        }
+        tmp.push(t);
+    }
+
+    swap(a,tmp);
+
+     while(a.getSize() > 0){
+        cout << a.top() << " ";
+        a.pop();
+    }
+
     
 }
