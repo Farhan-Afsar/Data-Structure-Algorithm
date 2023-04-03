@@ -4,7 +4,11 @@ using namespace std;
 int pres(char ch){
     if(ch == '+' || ch == '-')
         return 0;
-    return 1;
+    else if(ch == '*' || ch == '/')
+        return 1;
+    
+    return -1;
+    
 }
 int main(){
     string s,ans;
@@ -17,6 +21,16 @@ int main(){
 
         if(current >= 'a' && current <= 'z'){
             ans += current; 
+        }
+        else if(current == '('){
+            st.push(current);
+        }
+        else if(current == ')'){
+            while(st.size() && st.top() != '('){
+                ans += st.top();
+                st.pop();
+            }
+            st.pop();
         }
         else{
             while(st.size() && pres(st.top()) >= pres(current)){
